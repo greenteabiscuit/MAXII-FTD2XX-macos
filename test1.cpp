@@ -14,7 +14,7 @@ char        buf[256];
 DWORD       WriteNum, TransNum;
 DWORD       ReadNum;
 unsigned char bufc[128];
-char a[100000];
+double a[1986560];
 int i, j, k;
 
 using namespace std;
@@ -71,15 +71,14 @@ int main(){
                 }
                 printf("finished loop\n");
                 array_cnt = j + i * 64 + k * 4096;
-                printf("%d\n", array_cnt);
-                ofstream outputfile("test.txt");
-                for (i = 0; i < array_cnt; i++)
+                //printf("%d\n", array_cnt);
+                ofstream ofs("test.txt");
+                for (i = 0; i < 1000; i++)
                 {
-                    printf("%d\n", bufc[i]);
-                    outputfile<<bufc[i];
-                    outputfile<<"\n";
+                    printf("%f\n", a[i]);
+                    ofs << a[i] << endl;
                 }
-                outputfile.close();
+                ofs.close();
             }
             printf("closing\n");
             ftStatus = FT_Close(ftHandle[devcnt]);  // USB Device CLOSE
