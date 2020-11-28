@@ -73,7 +73,7 @@ int main(){
                 array_cnt = j + i * 64 + k * 4096;
                 //printf("%d\n", array_cnt);
                 ofstream ofs("test.txt");
-                for (i = 0; i < 1000; i++)
+                for (i = 0; i < 3000; i++)
                 {
                     printf("%f\n", a[i]);
                     ofs << a[i] << endl;
