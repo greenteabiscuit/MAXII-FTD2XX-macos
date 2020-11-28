@@ -10,12 +10,14 @@ DWORD       numDevs;
 DWORD		devIndex;
 int			devcnt, devlast;
 int         array_cnt;
-char        buf[256];
+char        buf[256]; // -127 to 127
 DWORD       WriteNum, TransNum;
 DWORD       ReadNum;
-unsigned char bufc[128];
+unsigned char bufc[128]; //保存できるのは0-255
 double a[1986560];
+double a_copy[1986560];
 int i, j, k;
+unsigned char tmp_even, tmp_odd;
 
 using namespace std;
 
@@ -53,14 +55,10 @@ int main(){
                         TransNum = 0; WriteNum = 1;
                         buf[0] = 0x08; // transfer len set to be 128
                         ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
-                        //printf("trying to read of transfer len 128\n");
-                        //for (j = 0; j < 128; j++) printf("%d\n", buf[j]);
                         for (j = 0; j < 128; j++) bufc[j] = buf[j];
 
                         buf[0] = 0x05; // USB FIFO data load command
                         ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
-                        //printf("trying to read USB FIFO data load command\n");
-                        //for (j = 0; j < 128; j++) printf("%d\n", buf[j]);
                         for (j = 0; j < 128; j++) bufc[j] = buf[j];
 
                         TransNum = 0; WriteNum = 0; ReadNum = 128;
@@ -73,14 +71,52 @@ int main(){
                 array_cnt = j + i * 64 + k * 4096;
                 //printf("%d\n", array_cnt);
                 ofstream ofs("test.txt");
-                for (i = 0; i < 3000; i++)
+                for (i = 0; i < 4000; i++)
                 {
-                    printf("%f\n", a[i]);
+                    //printf("%f\n", a[i]);
                     ofs << a[i] << endl;
                 }
                 ofs.close();
+
+                cout << "second loop start" << endl;
+                for (i=0; i<64; i++){
+                    if (i % 10 == 0) cout << i << endl;
+                    TransNum = 0; WriteNum=1; 
+                    buf[0]=0x08; // transfer len set to be 128
+                    ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
+
+                    for (j=0;j<128;j++) bufc[j]=buf[j];
+
+                    buf[0]=0x05; // USB FIFO data load command
+                    ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
+
+                    //for (j=0;j<128;j++) bufc[j]=buf[j];
+                    for (j=0;j<128;j++) {
+                        bufc[j]=buf[j];
+                        //cout << +bufc[j] << "\t" << buf[j] << endl;
+                    }
+                    TransNum = 0; WriteNum=0; ReadNum=128; 
+                    ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);			   
+                    //for (j=0;j<64;j++) a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
+                    for (j=0; j<64; j++) {
+                        a[j + i * 64] = bufc[2 * j] + bufc[2 * j + 1] * 256;
+                        cout << +bufc[2 * j] << "\t" << +bufc [2 * j + 1] << "\t" << a[j + i * 64] << endl;
+                    } 
+                }
+                ofstream ofs2("test2.txt");
+                for (i = 0; i < 2000; i++)
+                {
+                    tmp_even = bufc[2 * i];
+                    tmp_odd = bufc[2 * i + 1];
+                    a_copy[i] = tmp_even + tmp_odd * 256;
+                    
+                    //cout << +tmp_even << "\t" << +tmp_odd << "\t" << a_copy[i] << "\t" << a[i] << endl;
+                    ofs2 << a[i] << endl;
+                    
+                }
+                ofs2.close();
             }
-            printf("closing\n");
+            cout << "closing" << endl;
             ftStatus = FT_Close(ftHandle[devcnt]);  // USB Device CLOSE
             break;
         }
