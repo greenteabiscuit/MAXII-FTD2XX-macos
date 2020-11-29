@@ -55,7 +55,10 @@ int main(){
                     devcnt = 0;
                     TransNum = 0; WriteNum = 1;
                     buf[0] = 0x03;
+                    // write into memory
                     ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
+
+                    // とりあえず 0 以外の数字が入ってきたら録音を終了するようにする
                     cin >> stop;
                     if (stop) cout << stop << endl;
                     if (stop!=0) {
