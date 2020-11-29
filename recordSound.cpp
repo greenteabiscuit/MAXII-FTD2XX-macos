@@ -25,7 +25,7 @@ using namespace std;
 int main(){
     numDevs = 0;
     ftStatus = FT_ListDevices(&numDevs,NULL,FT_LIST_NUMBER_ONLY);
-    printf("%u\n", ftStatus);
+    cout << ftStatus << endl;
     printf("%d\n", numDevs);
     devlast = numDevs;
     cout << "loop starting" << endl;
