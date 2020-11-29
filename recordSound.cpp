@@ -28,21 +28,21 @@ int main(){
     printf("%u\n", ftStatus);
     printf("%d\n", numDevs);
     devlast = numDevs;
-    printf("loop starting\n");
+    cout << "loop starting" << endl;
 	for(devcnt = 0;devcnt != devlast; devcnt++){
         devIndex = (DWORD)devcnt;
         ftStatus = FT_ListDevices((PVOID)devIndex, buf, FT_LIST_BY_INDEX|FT_OPEN_BY_SERIAL_NUMBER);
         if (ftStatus==FT_OK) {
             ftStatus = FT_OpenEx(buf, FT_OPEN_BY_SERIAL_NUMBER, &ftHandle[devcnt]);
             if (ftStatus==FT_OK) {
-                printf("Open ok\n");
+                cout << "Open ok" << endl;
             }
             devcnt=0;	// device #0		
             TransNum = 0; WriteNum=1; 
 			buf[0]=0x02; //address counter clear command 0x02
             ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
             if (ftStatus==FT_OK) {
-                printf("address clear successful\n");
+                cout << "address clear successful" << endl;
             }
             TransNum = 0; WriteNum=1; 
 			buf[0]=0x04; //read initialization
