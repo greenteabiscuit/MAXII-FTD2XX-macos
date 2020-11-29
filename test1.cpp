@@ -3,6 +3,7 @@
 #include "stdlib.h"
 #include <iostream>
 #include <fstream>
+#include <unistd.h>
 
 FT_HANDLE   ftHandle[4];
 FT_STATUS   ftStatus;
@@ -47,24 +48,31 @@ int main(){
 			buf[0]=0x04; //read initialization
             ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
             if (ftStatus==FT_OK) {
-                printf("read initialization successful\n");
+                cout << "print initialization successful" << endl;
 
                 for (k = 0; k < 16; k++) {
-                    printf("loop %d\n", k);
+                    cout << "loop: " << k << endl;
                     for (i = 0; i < 64; i++) {
                         TransNum = 0; WriteNum = 1;
                         buf[0] = 0x08; // transfer len set to be 128
                         ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
                         for (j = 0; j < 128; j++) bufc[j] = buf[j];
+                        cout << "setting transfer length to 128" << endl;
+                        sleep(1);
+                        
 
                         buf[0] = 0x05; // USB FIFO data load command
                         ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
                         for (j = 0; j < 128; j++) bufc[j] = buf[j];
+                        cout << "USB FIFO data load" << endl;
+                        sleep(3);
 
                         TransNum = 0; WriteNum = 0; ReadNum = 128;
 
                         ftStatus = FT_Read(ftHandle[devcnt], bufc, ReadNum, &TransNum);
                         for (j = 0; j < 64; j++) a[j + i * 64 + k * 4096] = bufc[2 * j] + bufc[2 * j + 1] * 256;
+                        cout << "reading data from fifo" << endl;
+                        sleep(1);
                     }
                 }
                 printf("finished loop\n");
@@ -99,12 +107,12 @@ int main(){
                     ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);			   
                     //for (j=0;j<64;j++) a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
                     for (j=0; j<64; j++) {
-                        a[j + i * 64] = bufc[2 * j] + bufc[2 * j + 1] * 256;
-                        cout << +bufc[2 * j] << "\t" << +bufc [2 * j + 1] << "\t" << a[j + i * 64] << endl;
+                        a[j + i * 64] = bufc[2 * j] + 2 * 256;
+                        cout << +bufc[2 * j] << "\t" << 2 << "\t" << a[j + i * 64] << endl;
                     } 
                 }
                 ofstream ofs2("test2.txt");
-                for (i = 0; i < 2000; i++)
+                for (i = 0; i < 4000; i++)
                 {
                     tmp_even = bufc[2 * i];
                     tmp_odd = bufc[2 * i + 1];
