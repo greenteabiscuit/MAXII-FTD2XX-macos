@@ -1,4 +1,4 @@
-# MAXII-ftdi-macos
+# MAXII-FTD2XX-macos
 
 ## Environment & Prerequisites
 
