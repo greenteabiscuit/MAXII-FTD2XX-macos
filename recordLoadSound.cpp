@@ -74,8 +74,9 @@ int main(){
             stop = 0;
             if (ftStatus==FT_OK) {
                 cout << "print initialization successful" << endl;
-                ofstream ofs("soundrecord.txt");
                 while (1) {
+                    cout << "opening soudrecord" << endl;
+                    ofstream ofs("soundrecord.txt");
                     devcnt = 0;
                     TransNum = 0; WriteNum = 1;
                     buf[0] = 0x03;
@@ -86,7 +87,7 @@ int main(){
                     cout << "stopping and processing" << endl;
                     buf[0] = 0x04;
                     ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
-                    sleep(3);
+                    //sleep(3);
                     for (i=0;i<640;i++){
                         //cout << "set transfer len to 128" << endl;
                         TransNum = 0; WriteNum=1; 
@@ -114,8 +115,8 @@ int main(){
                     cout << "average: " << average / (j + i * 64 + 1) << endl;
                     cout << "write finished" << endl;
                     sleep(3);
+                    ofs.close();
                 }
-                ofs.close();
             }
 
             cout << "closing" << endl;
