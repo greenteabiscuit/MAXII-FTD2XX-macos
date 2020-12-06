@@ -19,6 +19,7 @@ DWORD       ReadNum;
 unsigned char bufc[128]; //保存できるのは0-255
 double a[1986560];
 double a_copy[1986560];
+double average;
 int i, j, k, stop;
 unsigned char tmp_even, tmp_odd;
 
@@ -105,10 +106,12 @@ int main(){
                         ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);		   
                         for (j=0;j<64;j++) {
                             a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
-                            cout << j + i * 64 << ": " << a[j+i*64] << endl;
+                            average += a[j+i*64];
+                            //cout << j + i * 64 << ": " << a[j+i*64] << endl;
                             ofs << a[j+i*64] << endl;
                         }
                     }
+                    cout << "average: " << average / (j + i * 64 + 1) << endl;
                     cout << "write finished" << endl;
                     sleep(3);
                 }
