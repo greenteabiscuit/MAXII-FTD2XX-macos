@@ -86,29 +86,31 @@ int main(){
                     buf[0] = 0x04;
                     ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
                     sleep(3);
-                    for (i=0;i<64;i++){
-                        cout << "set transfer len to 128" << endl;
+                    for (i=0;i<640;i++){
+                        //cout << "set transfer len to 128" << endl;
                         TransNum = 0; WriteNum=1; 
 			            buf[0]=0x08; // transfer len set to be 128
                         ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
                         for (j=0;j<128;j++) bufc[j]=buf[j];
-                        sleep(1);
+                        //sleep(1);
 
-                        cout << "USB FIFO data load command" << endl;
+                        //cout << "USB FIFO data load command" << endl;
                         buf[0]=0x05; // USB FIFO data load command
                         ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
                         for (j=0;j<128;j++) bufc[j]=buf[j];
-                        sleep(1);
+                        //sleep(1);
 
-                        cout << "Reading USB data" << endl;
+                        //cout << "Reading USB data" << endl;
                         TransNum = 0; WriteNum=0; ReadNum=128; 
                         ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);		   
                         for (j=0;j<64;j++) {
                             a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
-                            cout << a[j+i*64] << endl;
+                            cout << j + i * 64 << ": " << a[j+i*64] << endl;
                             ofs << a[j+i*64] << endl;
                         }
                     }
+                    cout << "write finished" << endl;
+                    sleep(3);
                 }
                 ofs.close();
             }

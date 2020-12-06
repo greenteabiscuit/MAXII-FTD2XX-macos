@@ -4,3 +4,5 @@ d2xx-env
 libusb
 Object
 Samples
+build
+.vscode
