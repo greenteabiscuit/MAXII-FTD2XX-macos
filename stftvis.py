@@ -18,12 +18,13 @@ if __name__ == "__main__":
     plt.close()
     """
     fs = 44100
-
+    angle = input('Enter angle: ')
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
     x1, x2, y1, y2 = plt.axis()
     plt.axis((x1, x2, y1, y2))
-    plt.xlabel("time")
-    plt.ylabel("frequency")
+    plt.xlabel("time [s]")
+    plt.ylabel("frequency [Hz]")
     plt.colorbar(im).set_label('Intensity [dB]')
+    plt.title(f"STFT Analysis of Waveform ({angle} Degrees)")
     plt.show()
     plt.close()
