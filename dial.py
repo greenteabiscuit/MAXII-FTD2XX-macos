@@ -4,10 +4,24 @@ import numpy as np
 import math
 from PIL import Image
 from mpl_toolkits.axes_grid1 import make_axes_locatable
- 
+
 # set your color array and name of figure here:
 # dial_colors2 = np.linspace(0,1,1000) # using linspace here as an example
-dial_colors = np.random.rand(2000)
+# dial_colors = (np.random.rand(2000) * 20 + 50) / 100
+
+dial_colors = np.concatenate([
+    (np.random.rand(200) * 20 + 10) / 100,
+    (np.random.rand(200) * 20 + 20) / 100,
+    (np.random.rand(200) * 20 + 30) / 100,
+    (np.random.rand(200) * 20 + 40) / 100,
+    (np.random.rand(200) * 20 + 50) / 100,
+    (np.random.rand(200) * 20 + 60) / 100,
+    (np.random.rand(200) * 20 + 50) / 100,
+    (np.random.rand(200) * 20 + 40) / 100,
+    (np.random.rand(200) * 20 + 30) / 100,
+    (np.random.rand(200) * 20 + 20) / 100,
+])
+
 print(dial_colors.shape)
 hist, bins = np.histogram(dial_colors)
 print(hist, bins)
@@ -19,15 +33,15 @@ arrow_index = 750
 # create labels at desired locations
 # note that the pie plot plots from right to left
 labels = [' ']*len(dial_colors)
-labels[25] = '90'
+labels[0] = '90'
 labels[250] = '45'
 labels[500] = '0'
 labels[750] = '315'
-labels[975] = '270'
+labels[1000] = '270'
 labels[1250] = '225'
-labels[1500] = '180'
+labels[1480] = '180'
 labels[1750] = '135'
- 
+
 # function plotting a colored dial
 def dial(color_array, arrow_index, labels, ax):
     # Create bins to plot (equally sized)
@@ -35,8 +49,9 @@ def dial(color_array, arrow_index, labels, ax):
 
     # Create a pieplot, half white, half colored by your color array
     white_half = np.ones(len(color_array))*.5
+    # color_half
     color_half = color_array
-    color_pallet = np.concatenate([color_half, white_half])
+    color_pallet = np.concatenate([color_half, color_half])
 
     cs=cm.RdYlBu(color_pallet)
     pie_wedge_collection = ax.pie(size_of_groups, colors=cs, labels=labels)
