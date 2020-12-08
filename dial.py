@@ -13,18 +13,18 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 # 
 
 dial_colors = np.concatenate([
-    (np.random.rand(300) * 20 + 10) / 100, #1
-    (np.random.rand(300) * 20 + 10) / 100, #2
-    (np.random.rand(300) * 20 + 10) / 100, #3
-    (np.random.rand(300) * 20 + 40) / 100, #4
-    (np.random.rand(300) * 20 + 50) / 100, #5
-    (np.random.rand(300) * 20 + 60) / 100, #6
-    (np.random.rand(300) * 20 + 50) / 100, #7
-    (np.random.rand(300) * 20 + 40) / 100, #8
-    (np.random.rand(300) * 20 + 30) / 100, #9
-    (np.random.rand(300) * 20 + 20) / 100, #10
-    (np.random.rand(300) * 20 + 30) / 100, #11
-    (np.random.rand(300) * 20 + 20) / 100, #12
+    (np.random.rand(300) * 20 + 20) / 100, #1, 0 to 30
+    (np.random.rand(300) * 20 + 30) / 100, #2, 30 to 60
+    (np.random.rand(300) * 20 + 60) / 100, #3, 60 to 90
+    (np.random.rand(300) * 20 + 60) / 100, #4, 90 to 120
+    (np.random.rand(300) * 20 + 50) / 100, #5, 120 to 150
+    (np.random.rand(300) * 20 + 40) / 100, #6, 150 to 180
+    (np.random.rand(300) * 20 + 40) / 100, #7, 180 to 210
+    (np.random.rand(300) * 20 + 40) / 100, #8, 210 to 240
+    (np.random.rand(300) * 20 + 30) / 100, #9, 240 to 270
+    (np.random.rand(300) * 20 + 20) / 100, #10, 270 to 300
+    (np.random.rand(300) * 20 + 30) / 100, #11, 300 to 330
+    (np.random.rand(300) * 20 + 20) / 100, #12, 330 to 360
 ])
 
 print(dial_colors.shape)
@@ -53,13 +53,13 @@ def dial(color_array, arrow_index, labels, ax):
     # Create bins to plot (equally sized)
     size_of_groups=np.ones(len(color_array))
 
-    cs=cm.RdYlBu(color_array)
+    cs=cm.YlOrRd(color_array)
     pie_wedge_collection = ax.pie(size_of_groups, colors=cs, labels=labels)
 
     i=0
     print("pie wedge collection", len(pie_wedge_collection[0]))
     for pie_wedge in pie_wedge_collection[0]:
-        pie_wedge.set_edgecolor(cm.RdYlBu(color_array[i]))
+        pie_wedge.set_edgecolor(cm.YlOrRd(color_array[i]))
         i=i+1
 
     # create a white circle to make the pie chart a dial
@@ -76,12 +76,14 @@ ax.set_aspect('equal')
 plt.savefig(figname + '.png', bbox_inches='tight') 
 
 # create a figure for the colorbar (crop so only colorbar is saved)
+print("setting scalar mappable")
 fig, ax2 = plt.subplots()
-cmap = cm.ScalarMappable(cmap='RdYlBu')
+cmap = cm.ScalarMappable(cmap="YlOrRd")
 cmap.set_array([min(dial_colors), max(dial_colors)])
 cbar = plt.colorbar(cmap, orientation='horizontal')
-cbar.ax.set_xlabel("Risk")
+cbar.ax.set_xlabel("Accumulated Sum")
 plt.savefig('cbar.png', bbox_inches='tight')
+print("cropping")
 cbar = Image.open('cbar.png')
 c_width, c_height = cbar.size
 cbar = cbar.crop((0, .8*c_height, c_width, c_height)).save('cbar.png')
