@@ -11,25 +11,61 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # best change it to 3600
 # 
+"""
+dial_colors = np.concatenate([
+    (np.random.rand(300) * 20 + 40) / 100, #1, 0 to 30
+    (np.random.rand(300) * 20 + 50) / 100, #2, 30 to 60
+    np.full(300, 0.7), #3, 60 to 90
+    np.full(300, 0.7), #4, 90 to 120
+    (np.random.rand(300) * 20 + 50) / 100, #5, 120 to 150
+    (np.random.rand(300) * 20 + 45) / 100, #6, 150 to 180
+    (np.random.rand(300) * 20 + 45) / 100, #7, 180 to 210
+    (np.random.rand(300) * 5 + 40) / 100, #8, 210 to 240
+    (np.random.rand(300) * 5 + 30) / 100, #9, 240 to 270
+    (np.random.rand(300) * 20 + 40) / 100, #10, 270 to 300
+    (np.random.rand(300) * 10 + 30) / 100, #11, 300 to 330
+    (np.random.rand(300) * 20 + 40) / 100, #12, 330 to 360
+])
 
 dial_colors = np.concatenate([
-    (np.random.rand(300) * 20 + 20) / 100, #1, 0 to 30
-    (np.random.rand(300) * 20 + 30) / 100, #2, 30 to 60
-    (np.random.rand(300) * 20 + 60) / 100, #3, 60 to 90
-    (np.random.rand(300) * 20 + 60) / 100, #4, 90 to 120
-    (np.random.rand(300) * 20 + 50) / 100, #5, 120 to 150
-    (np.random.rand(300) * 20 + 40) / 100, #6, 150 to 180
-    (np.random.rand(300) * 20 + 40) / 100, #7, 180 to 210
-    (np.random.rand(300) * 20 + 40) / 100, #8, 210 to 240
-    (np.random.rand(300) * 20 + 30) / 100, #9, 240 to 270
-    (np.random.rand(300) * 20 + 20) / 100, #10, 270 to 300
-    (np.random.rand(300) * 20 + 30) / 100, #11, 300 to 330
-    (np.random.rand(300) * 20 + 20) / 100, #12, 330 to 360
+    np.full(300, 530), #1, 0 to 30
+    np.full(300, 535), #2, 30 to 60
+    np.full(300, 540), #3, 60 to 90
+    np.full(300, 543), #4, 90 to 120
+    np.full(300, 535), #5, 120 to 150
+    np.full(300, 530), #6, 150 to 180
+    np.full(300, 520), #7, 180 to 210
+    np.full(300, 515), #8, 210 to 240
+    np.full(300, 510), #9, 240 to 270
+    np.full(300, 515), #10, 270 to 300
+    np.full(300, 520), #11, 300 to 330
+    np.full(300, 525), #12, 330 to 360
 ])
+"""
+
+# dial_colors = np.concatenate([np.full(300, i) for i in range(1, 37, 1)])
+dial_colors_0_90 = np.concatenate([np.full(300, 530+i) for i in range(1, 13, 1)])
+dial_colors_90_270 = np.concatenate([np.full(300, 542-i) for i in range(1, 25, 1)])
+dial_colors_270_360 = np.concatenate([np.full(300, 518+i) for i in range(1, 13, 1)])
+
+dial_colors = np.concatenate([
+    dial_colors_0_90,
+    dial_colors_90_270,
+    dial_colors_270_360,
+])
+
+print("min", dial_colors.min())
+
+numer = dial_colors - dial_colors.min()
+denom = dial_colors.max() - dial_colors.min() + 0.1
+
+dial_colors = numer / denom
+
 
 print(dial_colors.shape)
 hist, bins = np.histogram(dial_colors)
-print(hist, bins)
+print(hist)
+print(bins)
 figname = 'myDial'
 
 # specify which index you want your arrow to point to
@@ -39,27 +75,27 @@ arrow_index = 750
 # note that the pie plot plots from right to left
 labels = [' ']*len(dial_colors)
 labels[0] = '90'
-labels[450] = '45'
-labels[900] = '0'
-labels[1350] = '315'
-labels[1800] = '270'
-labels[2250] = '225'
+labels[(len(dial_colors) // 8) * 1] = '45'
+labels[(len(dial_colors) // 8) * 2] = '0'
+labels[(len(dial_colors) // 8) * 3] = '315'
+labels[(len(dial_colors) // 8) * 4] = '270'
+labels[(len(dial_colors) // 8) * 5] = '225'
 # 180だけ位置がおかしいのであとで入れる
 # labels[2700] = '180'
-labels[3150] = '135'
+labels[(len(dial_colors) // 8) * 7] = '135'
 
 # function plotting a colored dial
 def dial(color_array, arrow_index, labels, ax):
     # Create bins to plot (equally sized)
     size_of_groups=np.ones(len(color_array))
 
-    cs=cm.YlOrRd(color_array)
+    cs = cm.jet(color_array)
     pie_wedge_collection = ax.pie(size_of_groups, colors=cs, labels=labels)
 
     i=0
     print("pie wedge collection", len(pie_wedge_collection[0]))
     for pie_wedge in pie_wedge_collection[0]:
-        pie_wedge.set_edgecolor(cm.YlOrRd(color_array[i]))
+        pie_wedge.set_edgecolor(cm.jet(color_array[i]))
         i=i+1
 
     # create a white circle to make the pie chart a dial
@@ -78,7 +114,8 @@ plt.savefig(figname + '.png', bbox_inches='tight')
 # create a figure for the colorbar (crop so only colorbar is saved)
 print("setting scalar mappable")
 fig, ax2 = plt.subplots()
-cmap = cm.ScalarMappable(cmap="YlOrRd")
+cmap = cm.ScalarMappable(cmap="jet")
+print(min(dial_colors), max(dial_colors))
 cmap.set_array([min(dial_colors), max(dial_colors)])
 cbar = plt.colorbar(cmap, orientation='horizontal')
 cbar.ax.set_xlabel("Accumulated Sum")
