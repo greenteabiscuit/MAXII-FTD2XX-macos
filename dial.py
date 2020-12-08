@@ -6,10 +6,7 @@ from PIL import Image
 from mpl_toolkits.axes_grid1 import make_axes_locatable
  
 # set your color array and name of figure here:
-dial_colors2 = np.linspace(0,1,1000) # using linspace here as an example
-print(dial_colors2.shape)
-hist, bins = np.histogram(dial_colors2)
-print(hist, bins)
+# dial_colors2 = np.linspace(0,1,1000) # using linspace here as an example
 dial_colors = np.random.rand(2000)
 print(dial_colors.shape)
 hist, bins = np.histogram(dial_colors)
@@ -22,11 +19,14 @@ arrow_index = 750
 # create labels at desired locations
 # note that the pie plot plots from right to left
 labels = [' ']*len(dial_colors)
-labels[25] = '100'
-labels[250] = '75'
-labels[500] = '50'
-labels[750] = '25'
-labels[975] = '0'
+labels[25] = '90'
+labels[250] = '45'
+labels[500] = '0'
+labels[750] = '315'
+labels[975] = '270'
+labels[1250] = '225'
+labels[1500] = '180'
+labels[1750] = '135'
  
 # function plotting a colored dial
 def dial(color_array, arrow_index, labels, ax):
@@ -50,12 +50,6 @@ def dial(color_array, arrow_index, labels, ax):
     my_circle=plt.Circle( (0,0), 0.3, color='white')
     ax.add_artist(my_circle)
 
-    # create the arrow, pointing at specified index
-    #arrow_angle = (arrow_index/float(len(color_array)))*3.14159
-    #arrow_x = 0.2*math.cos(arrow_angle)
-    #arrow_y = 0.2*math.sin(arrow_angle)
-    #ax.arrow(0,0,-arrow_x,arrow_y, width=.02, head_width=.05, \
-    #    head_length=.1, fc='k', ec='k')
 
 # create figure and specify figure name
 fig, ax = plt.subplots()
