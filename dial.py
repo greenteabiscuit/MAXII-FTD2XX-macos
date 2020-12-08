@@ -68,9 +68,6 @@ print(hist)
 print(bins)
 figname = 'myDial'
 
-# specify which index you want your arrow to point to
-arrow_index = 750
-
 # create labels at desired locations
 # note that the pie plot plots from right to left
 labels = [' ']*len(dial_colors)
