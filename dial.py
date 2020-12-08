@@ -13,16 +13,18 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 # 
 
 dial_colors = np.concatenate([
-    (np.random.rand(200) * 20 + 10) / 100,
-    (np.random.rand(200) * 20 + 10) / 100,
-    (np.random.rand(200) * 20 + 10) / 100,
-    (np.random.rand(200) * 20 + 40) / 100,
-    (np.random.rand(200) * 20 + 50) / 100,
-    (np.random.rand(200) * 20 + 60) / 100,
-    (np.random.rand(200) * 20 + 50) / 100,
-    (np.random.rand(200) * 20 + 40) / 100,
-    (np.random.rand(200) * 20 + 30) / 100,
-    (np.random.rand(200) * 20 + 20) / 100,
+    (np.random.rand(300) * 20 + 10) / 100, #1
+    (np.random.rand(300) * 20 + 10) / 100, #2
+    (np.random.rand(300) * 20 + 10) / 100, #3
+    (np.random.rand(300) * 20 + 40) / 100, #4
+    (np.random.rand(300) * 20 + 50) / 100, #5
+    (np.random.rand(300) * 20 + 60) / 100, #6
+    (np.random.rand(300) * 20 + 50) / 100, #7
+    (np.random.rand(300) * 20 + 40) / 100, #8
+    (np.random.rand(300) * 20 + 30) / 100, #9
+    (np.random.rand(300) * 20 + 20) / 100, #10
+    (np.random.rand(300) * 20 + 30) / 100, #11
+    (np.random.rand(300) * 20 + 20) / 100, #12
 ])
 
 print(dial_colors.shape)
@@ -37,14 +39,14 @@ arrow_index = 750
 # note that the pie plot plots from right to left
 labels = [' ']*len(dial_colors)
 labels[0] = '90'
-labels[250] = '45'
-labels[500] = '0'
-labels[750] = '315'
-labels[1000] = '270'
-labels[1250] = '225'
+labels[450] = '45'
+labels[900] = '0'
+labels[1350] = '315'
+labels[1800] = '270'
+labels[2250] = '225'
 # 180だけ位置がおかしいのであとで入れる
-# labels[1499] = '180'
-labels[1750] = '135'
+# labels[2700] = '180'
+labels[3150] = '135'
 
 # function plotting a colored dial
 def dial(color_array, arrow_index, labels, ax):
