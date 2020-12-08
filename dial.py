@@ -44,9 +44,9 @@ dial_colors = np.concatenate([
 """
 
 # dial_colors = np.concatenate([np.full(300, i) for i in range(1, 37, 1)])
-dial_colors_0_90 = np.concatenate([np.full(300, 530+i) for i in range(1, 13, 1)])
-dial_colors_90_270 = np.concatenate([np.full(300, 542-i) for i in range(1, 25, 1)])
-dial_colors_270_360 = np.concatenate([np.full(300, 518+i) for i in range(1, 13, 1)])
+dial_colors_0_90 = np.concatenate([np.full(300, 530+i) for i in range(1, 10, 1)])
+dial_colors_90_270 = np.concatenate([np.full(300, 539-i) for i in range(1, 19, 1)])
+dial_colors_270_360 = np.concatenate([np.full(300, 520+i) for i in range(1, 10, 1)])
 
 dial_colors = np.concatenate([
     dial_colors_0_90,
@@ -82,7 +82,7 @@ labels[(len(dial_colors) // 8) * 5] = '225'
 labels[(len(dial_colors) // 8) * 7] = '135'
 
 # function plotting a colored dial
-def dial(color_array, arrow_index, labels, ax):
+def dial(color_array, labels, ax):
     # Create bins to plot (equally sized)
     size_of_groups=np.ones(len(color_array))
 
@@ -98,13 +98,16 @@ def dial(color_array, arrow_index, labels, ax):
     # create a white circle to make the pie chart a dial
     my_circle=plt.Circle( (0,0), 0.3, color='white')
     ax.add_artist(my_circle)
+    ax.set_title("Sound Imaging 360 Degrees")
 
 
 # create figure and specify figure name
 fig, ax = plt.subplots()
 
 # make dial plot and save figure
-dial(dial_colors, arrow_index, labels, ax)
+
+dial(dial_colors, labels, ax)
+print("saving")
 ax.set_aspect('equal')
 plt.savefig(figname + '.png', bbox_inches='tight') 
 
