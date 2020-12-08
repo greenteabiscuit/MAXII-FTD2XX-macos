@@ -21,7 +21,7 @@ arrow_index = 750
 
 # create labels at desired locations
 # note that the pie plot plots from right to left
-labels = [' ']*len(dial_colors)*2
+labels = [' ']*len(dial_colors)
 labels[25] = '100'
 labels[250] = '75'
 labels[500] = '50'
@@ -31,7 +31,7 @@ labels[975] = '0'
 # function plotting a colored dial
 def dial(color_array, arrow_index, labels, ax):
     # Create bins to plot (equally sized)
-    size_of_groups=np.ones(len(color_array)*2)
+    size_of_groups=np.ones(len(color_array))
 
     # Create a pieplot, half white, half colored by your color array
     white_half = np.ones(len(color_array))*.5
