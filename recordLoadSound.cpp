@@ -22,6 +22,7 @@ double a_copy[1986560];
 double average;
 int i, j, k, stop;
 unsigned char tmp_even, tmp_odd;
+double maximum, minimum;
 
 using namespace std;
 
@@ -47,7 +48,7 @@ int main(){
     sigaction(SIGINT, &sigIntHandler, NULL);
 
 
-    numDevs = 0;
+    numDevs = 0; maximum = 0; minimum = 1000;
     ftStatus = FT_ListDevices(&numDevs,NULL,FT_LIST_NUMBER_ONLY);
     cout << ftStatus << endl;
     printf("%d\n", numDevs);
@@ -63,6 +64,8 @@ int main(){
             }
             devcnt=0;	// device #0		
             TransNum = 0; WriteNum=1; 
+            buf[0] = 0x04; // memory clear command 0x04
+            ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
 			buf[0]=0x02; //address counter clear command 0x02
             ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
             if (ftStatus==FT_OK) {
@@ -108,11 +111,19 @@ int main(){
                         for (j=0;j<64;j++) {
                             a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
                             average += a[j+i*64];
+                            if (maximum < a[j+i*64]) {
+                                maximum = a[j+i*64];
+                            }
+                            if (minimum > a[j+i*64]) {
+                                minimum = a[j+i*64];
+                            }
                             //cout << j + i * 64 << ": " << a[j+i*64] << endl;
                             ofs << a[j+i*64] << endl;
                         }
                     }
                     cout << "average: " << average / (j + i * 64 + 1) << endl;
+                    cout << "max: " << maximum << endl;
+                    cout << "min: " << minimum << endl;
                     cout << "write finished" << endl;
                     sleep(3);
                     ofs.close();

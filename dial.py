@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib import cm, gridspec
 import numpy as np
+import pandas as pd
 import math
 from PIL import Image
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -54,6 +55,16 @@ dial_colors = np.concatenate([
     dial_colors_270_360,
 ])
 
+df = pd.read_csv("statsval.csv")
+print(df.head())
+head = df['mean'].head(27).values
+tail = df['mean'].tail(9).values
+
+dial_colors_0_270 = np.concatenate([np.full(10, int(head[i])) for i in range(27)])
+dial_colors_270_360 = np.concatenate([np.full(10, int(tail[i])) for i in range(9)])
+
+dial_colors = np.concatenate([dial_colors_270_360, dial_colors_0_270])
+
 print("min", dial_colors.min())
 
 numer = dial_colors - dial_colors.min()
@@ -77,8 +88,8 @@ labels[(len(dial_colors) // 8) * 2] = '0'
 labels[(len(dial_colors) // 8) * 3] = '315'
 labels[(len(dial_colors) // 8) * 4] = '270'
 labels[(len(dial_colors) // 8) * 5] = '225'
-# 180だけ位置がおかしいのであとで入れる
-# labels[2700] = '180'
+# 180だけ位置がおかしい
+labels[(len(dial_colors) // 8) * 6] = '180'
 labels[(len(dial_colors) // 8) * 7] = '135'
 
 # function plotting a colored dial
