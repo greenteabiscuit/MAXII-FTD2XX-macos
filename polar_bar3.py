@@ -11,8 +11,6 @@ rad = np.linspace(0, 10, m)
 a = np.linspace(0, 2 * np.pi, n)
 r, th = np.meshgrid(rad, a)
 
-#z = np.random.uniform(-1, 1, (n,m))
-
 z = np.array([
     [0.9, 0.8, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7,],
     [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
