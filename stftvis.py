@@ -3,14 +3,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def wav_read():
-    with open('./soundrecord.txt') as f:
+def wav_read(angle):
+    with open(f'./rawdata-1210/{angle}.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
 
 if __name__ == "__main__":
-    lstrip = wav_read()
     """
     time = np.arange(0,len(wave))/fs
     plt.plot(time, wave)
@@ -19,7 +18,14 @@ if __name__ == "__main__":
     """
     fs = 44100
     angle = input('Enter angle: ')
+    lstrip = wav_read(angle)
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
+    print(Pxx.shape)
+    #print(Pxx)
+    print(freqs.shape)
+    #print(freqs)
+    print(bins.shape)
+    #print(bins)
     x1, x2, y1, y2 = plt.axis()
     plt.axis((x1, x2, y1, y2))
     plt.xlabel("time [s]")
