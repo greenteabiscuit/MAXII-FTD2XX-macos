@@ -13,3 +13,4 @@ build
 *.png
 *.ipynb
 *.txt
+*.csv

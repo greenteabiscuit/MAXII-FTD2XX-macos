@@ -1,6 +1,7 @@
 import soundfile as sf
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
 def wav_read(angle):
@@ -22,9 +23,18 @@ if __name__ == "__main__":
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
     print(Pxx.shape)
     #print(Pxx)
-    print(freqs.shape)
+    print("freqs", freqs.shape)
     #print(freqs)
-    print(bins.shape)
+    print("bins", bins.shape)
+
+    print(Pxx.sum(axis=1).shape)
+    print(Pxx.sum(axis=0).shape)
+
+    # print(Pxx.sum(axis=1))
+    print(pd.Series(Pxx.sum(axis=1)))
+
+    pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-1210/{angle}.csv", index=False)
+
     #print(bins)
     x1, x2, y1, y2 = plt.axis()
     plt.axis((x1, x2, y1, y2))
