@@ -6,3 +6,10 @@ Object
 Samples
 build
 .vscode
+*.cfg
+*.a
+*.dylib
+*.h
+*.png
+*.ipynb
+*.txt
