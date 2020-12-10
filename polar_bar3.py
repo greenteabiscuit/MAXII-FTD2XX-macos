@@ -6,7 +6,7 @@ fig = plt.figure()
 ax = Axes3D(fig)
 
 n = 12
-m = 24
+m = 8
 rad = np.linspace(0, 10, m)
 a = np.linspace(0, 2 * np.pi, n)
 r, th = np.meshgrid(rad, a)
