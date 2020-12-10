@@ -24,14 +24,15 @@ if __name__ == "__main__":
     print(Pxx.shape)
     #print(Pxx)
     print("freqs", freqs.shape)
-    #print(freqs)
+    print(freqs)
     print("bins", bins.shape)
+    print(bins)
 
     print(Pxx.sum(axis=1).shape)
     print(Pxx.sum(axis=0).shape)
 
     # print(Pxx.sum(axis=1))
-    print(pd.Series(Pxx.sum(axis=1)))
+    # print(pd.Series(Pxx.sum(axis=1)))
 
     pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-1210/{angle}.csv", index=False)
 
