@@ -43,13 +43,10 @@ print(z.shape)
 print(z.max(), z.min())
 ax = plt.subplot(111, projection="polar")
 # ax.set_rscale('log')
-ax.set_yscale('log')
 
-plt.pcolormesh(th, r, z, cmap = 'jet')
-ax.plot(a, r, ls='none', color = 'k')
-# ax.set_ylim(1,12)
-#ticks_loc = ax.get_yticks()
-#print(ticks_loc)
+
+plt.pcolormesh(th, np.log10(r), z, cmap = 'jet')
+ax.plot(a, np.log10(r), ls='none', color = 'k')
 
 # ax.set_yticks(np.logspace(1, 6, 6, base=10))
 # ax.set_yticklabels(np.logspace(1, 9, 9, base=10, dtype=int))
