@@ -17,7 +17,7 @@ if __name__ == "__main__":
     plt.show()
     plt.close()
     """
-    fs = 44100
+    fs = 20000
     angle = input('Enter angle: ')
     lstrip = wav_read(angle)
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
