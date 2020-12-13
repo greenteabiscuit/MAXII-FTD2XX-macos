@@ -21,7 +21,8 @@ ax = Axes3D(fig)
 n = z.shape[0] # z.shape[0]
 m = z.shape[1] # z.shape[1]
 #rad = np.linspace(0, 10, m)
-rad = np.linspace(0, 10**maximum // 1000, m // 2)
+#rad = np.linspace(0, 10**maximum // 1000, m)
+rad = np.linspace(1, m+1, m)
 print("rad:", rad)
 a = np.linspace(0, 2 * np.pi, n)
 r, th = np.meshgrid(rad, a)
@@ -29,13 +30,15 @@ r, th = np.meshgrid(rad, a)
 #z = np.random.uniform(-1, 1, (n,m))
 
 print(z.shape)
+print(r[0])
 # print(z)
-plt.subplot(projection="polar")
+ax = plt.subplot(111, projection="polar")
 
-plt.pcolormesh(th, r, z, cmap = 'jet')
+plt.pcolormesh(th, np.log10(r), z, cmap = 'jet')
 
-plt.plot(a, r, ls='none', color = 'k')
+plt.plot(a, np.log10(r), ls='none', color = 'k')
 plt.title("Power Distribution With Frequency In Radial Direction (Using FFT)")
+ax.set_yticklabels([f"{10**i} Hz" for i in range(1, 5)])
 plt.grid()
 plt.colorbar(label="Scaled Power")
 

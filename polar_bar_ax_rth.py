@@ -61,11 +61,11 @@ ax.plot(a, np.log10(r), ls='none', color = 'k')
 #ax.set_yticklabels([f"{i} Hz" for i in range(3500, 24500, 3500)])
 #ax.set_rlabel_position(45)
 ax.set_yticklabels(["", "10Hz", "", "100Hz", "", "1000Hz", "", "10000Hz"])
-ax.set_rlabel_position(40)
+ax.set_rlabel_position(45)
 
 plt.title("Power Distribution With Frequency In Radial Direction (Using STFT)")
 plt.grid()
 plt.colorbar(label="Scaled Power")
 
-# plt.savefig('a.png')
+plt.savefig('20201213-stft-accumulated-logscale.png')
 plt.show()
