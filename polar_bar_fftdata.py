@@ -18,33 +18,18 @@ z = (z_raw - minimum) / (maximum - minimum)
 fig = plt.figure()
 ax = Axes3D(fig)
 
-"""
-z = np.array([
-    [0.9, 0.8, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7,],
-    [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
-    [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7],
-    [0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6],
-    [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4],
-    [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-    [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3],
-    [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-    [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7],
-    [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
-    [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
-    [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9],
-])
-"""
 n = z.shape[0] # z.shape[0]
 m = z.shape[1] # z.shape[1]
 #rad = np.linspace(0, 10, m)
 rad = np.linspace(0, 10**maximum // 1000, m // 2)
+print("rad:", rad)
 a = np.linspace(0, 2 * np.pi, n)
 r, th = np.meshgrid(rad, a)
 
 #z = np.random.uniform(-1, 1, (n,m))
 
 print(z.shape)
-print(z)
+# print(z)
 plt.subplot(projection="polar")
 
 plt.pcolormesh(th, r, z, cmap = 'jet')

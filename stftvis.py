@@ -43,5 +43,6 @@ if __name__ == "__main__":
     plt.ylabel("frequency [Hz]")
     plt.colorbar(im).set_label('Intensity [dB]')
     plt.title(f"STFT Analysis of Waveform ({angle} Degrees)")
-    plt.savefig(f"visualizations/stftvis_{angle}.png")
+    #plt.savefig(f"visualizations/stftvis_{angle}.png")
+    plt.show()
     plt.close()
