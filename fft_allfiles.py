@@ -21,12 +21,17 @@ for i in range(0, 36, 1):
     f = wav_read(angle)
     N = len(f)
     t = np.arange(0, N*dt, dt) # 時間軸
-    freq = np.linspace(0, 1.0, N) # 周波数軸
-
     # 高速フーリエ変換
     F = np.fft.fft(f)
+    freq = np.fft.fftfreq(np.array(f).shape[-1])
 
     # 振幅スペクトルを計算
     Amp = np.abs(F)
+    #print(Amp.shape)
+    #print(Amp)
+    freq = np.linspace(0, 100.0, N) # 周波数軸
+    plt.plot(freq, Amp)
 
-    pd.DataFrame(Amp[1:], index=freq[1:]).to_csv(f"fftdata-1212/{angle}_fft.csv")
+
+    pd.DataFrame(Amp[1:], index=freq[1:]).to_csv(f"fftdata-1213/{angle}_fft.csv")
+plt.show()
