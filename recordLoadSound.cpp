@@ -79,7 +79,7 @@ int main(){
                 cout << "print initialization successful" << endl;
                 while (1) {
                     cout << "opening soudrecord" << endl;
-                    ofstream ofs("data-1210/soundrecord.txt");
+                    ofstream ofs("rawdata-1212/soundrecord.txt");
                     devcnt = 0;
                     TransNum = 0; WriteNum = 1;
                     buf[0] = 0x03;

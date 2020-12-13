@@ -5,7 +5,7 @@ import pandas as pd
 
 def wav_read(angle):
     print(angle)
-    with open(f'./rawdata-1210/{angle}.txt') as f:
+    with open(f'./rawdata-1212/{angle}.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
@@ -29,4 +29,4 @@ for i in range(0, 36, 1):
     # 振幅スペクトルを計算
     Amp = np.abs(F)
 
-    pd.DataFrame(Amp[1:], index=freq[1:]).to_csv(f"fftdata-1210/{angle}_fft.csv")
+    pd.DataFrame(Amp[1:], index=freq[1:]).to_csv(f"fftdata-1212/{angle}_fft.csv")
