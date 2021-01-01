@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def wav_read(angle):
-    with open(f'rawdata-1212/{angle}.txt') as f:
+    with open(f'rawdata-0101/{angle}.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
@@ -35,4 +35,4 @@ if __name__ == "__main__":
         # print(Pxx.sum(axis=1))
         # print(pd.Series(Pxx.sum(axis=1)))
 
-        pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-1212/{angle}.csv", index=False)
+        pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-0101/{angle}.csv", index=False)

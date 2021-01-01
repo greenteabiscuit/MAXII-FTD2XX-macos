@@ -5,7 +5,7 @@ import pandas as pd
 import math
 import matplotlib.ticker as mticker
 
-z_raw = pd.concat([pd.read_csv(f"stftdata-1212/{str(i*10)}.csv")["0"] for i in range(36)], axis=1).T.values
+z_raw = pd.concat([pd.read_csv(f"stftdata-0101/{str(i*10)}.csv")["0"] for i in range(36)], axis=1).T.values
 print("z_raw:")
 # print(z_raw)
 print(type(z_raw))

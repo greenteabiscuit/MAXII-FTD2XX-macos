@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def wav_read():
-    with open('./rawdata-1212/0.txt') as f:
+    with open('./rawdata-0101/0.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 

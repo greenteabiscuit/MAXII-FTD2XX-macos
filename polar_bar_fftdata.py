@@ -3,7 +3,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import pandas as pd
 
-z_raw = pd.concat([pd.read_csv(f"fftdata-1212/{str(i*10)}_fft.csv")["0"] for i in range(36)], axis=1).T.values
+date = "0101"
+
+z_raw = pd.concat([pd.read_csv(f"fftdata-{date}/{str(i*10)}_fft.csv")["0"] for i in range(36)], axis=1).T.values
 print(type(z_raw))
 print(z_raw.shape)
 z_raw = np.log10(z_raw)
@@ -14,6 +16,8 @@ minimum = z_raw.min()
 print(maximum, minimum)
 
 z = (z_raw - minimum) / (maximum - minimum)
+
+print(z.max(), z.min())
 
 fig = plt.figure()
 ax = Axes3D(fig)
@@ -42,5 +46,5 @@ ax.set_yticklabels([f"{10**i} Hz" for i in range(1, 5)])
 plt.grid()
 plt.colorbar(label="Scaled Power")
 
-plt.savefig('a.png')
+plt.savefig(f'2020{date}_fft_polarchart.png')
 plt.show()

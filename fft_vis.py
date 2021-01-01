@@ -7,8 +7,8 @@ plt.style.use("ggplot")
 
 def wav_read(angle):
     print(angle)
-    #print(pd.read_csv(f"fftdata-1212/{angle}_fft.csv", index_col=0).head()["0"])
-    df = pd.read_csv(f"fftdata-1212/{angle}_fft.csv", index_col=0)
+    #print(pd.read_csv(f"fftdata-0101/{angle}_fft.csv", index_col=0).head()["0"])
+    df = pd.read_csv(f"fftdata-0101/{angle}_fft.csv", index_col=0)
     df["0"].plot()
 
 
