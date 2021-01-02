@@ -2,10 +2,18 @@ import soundfile as sf
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
+load_dotenv(verbose=True)
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+DATE = os.environ.get("DATE")
 
 def wav_read(angle):
-    with open(f'rawdata-0101/{angle}.txt') as f:
+    with open(f'rawdata-{DATE}/{angle}.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
@@ -17,7 +25,8 @@ if __name__ == "__main__":
     plt.show()
     plt.close()
     """
-    fs = 40000
+    print(DATE)
+    fs = 20000
     angle = input('Enter angle: ')
     lstrip = wav_read(angle)
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
@@ -34,7 +43,7 @@ if __name__ == "__main__":
     # print(Pxx.sum(axis=1))
     # print(pd.Series(Pxx.sum(axis=1)))
 
-    pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-0101/{angle}.csv", index=False)
+    pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-{DATE}/{angle}.csv", index=False)
 
     #print(bins)
     x1, x2, y1, y2 = plt.axis()
