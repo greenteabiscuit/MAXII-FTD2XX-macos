@@ -18,3 +18,5 @@ build
 .cache
 *.zip
 *.pdf
+.env
+__pycache__
