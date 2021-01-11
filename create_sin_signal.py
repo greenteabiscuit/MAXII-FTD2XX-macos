@@ -20,10 +20,12 @@ sin_signal = np.sin(2000*x)
 for i in range(36):
     fs = 20000
     angle = str(i * 10)
-    print(angle)
-    lstrip = sin_signal.tolist()
+    amplitude =  10 ** abs(i-18)
+    print("angle:", angle, "\t", "amplitude:", amplitude)
+    data = amplitude * sin_signal
+    lstrip = data.tolist()
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
 
-    pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-freq2000-{DATE}/{angle}.csv", index=False)
+    pd.Series(Pxx.sum(axis=1)).to_csv(f"stftdata-{DATE}/{angle}.csv", index=False)
 
 
