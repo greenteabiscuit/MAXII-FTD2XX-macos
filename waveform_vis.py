@@ -4,7 +4,7 @@ import numpy as np
 
 
 def wav_read():
-    with open('rawdata-0101/soundrecord.txt') as f:
+    with open('rawdata-0110/soundrecord.txt') as f:
         l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
