@@ -19,4 +19,5 @@ build
 *.zip
 *.pdf
 .env
+!requirements.txt
 __pycache__
