@@ -13,8 +13,12 @@ load_dotenv(dotenv_path)
 DATE = os.environ.get("DATE")
 
 def wav_read(angle):
-    with open(f'rawdata-{DATE}/{angle}.txt') as f:
-        l_strip = [int(s.strip()) for s in f.readlines()]
+    try:
+        with open(f'rawdata-{DATE}/soundrecord.txt') as f:
+            l_strip = [int(s.strip()) for s in f.readlines()]
+    except:
+        with open(f'rawdata-{DATE}/{angle}.txt') as f:
+            l_strip = [int(s.strip()) for s in f.readlines()]
     return l_strip
 
 
