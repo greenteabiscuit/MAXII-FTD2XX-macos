@@ -77,57 +77,54 @@ int main(){
             stop = 0;
             if (ftStatus==FT_OK) {
                 cout << "print initialization successful" << endl;
-                while (1) {
-                    cout << "opening soudrecord" << endl;
-                    ofstream ofs("rawdata-0101/soundrecord.txt");
-                    devcnt = 0;
-                    TransNum = 0; WriteNum = 1;
-                    buf[0] = 0x03;
-                    // write into memory
-                    cout << "start recording for 3 seconds" << endl;
-                    ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
-                    sleep(3);
-                    cout << "stopping and processing" << endl;
-                    buf[0] = 0x04;
-                    ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
-                    //sleep(3);
-                    for (i=0;i<640;i++){
-                        //cout << "set transfer len to 128" << endl;
-                        TransNum = 0; WriteNum=1; 
-			            buf[0]=0x08; // transfer len set to be 128
-                        ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
-                        for (j=0;j<128;j++) bufc[j]=buf[j];
-                        //sleep(1);
+                cout << "opening soudrecord" << endl;
+                ofstream ofs("rawdata-0112/soundrecord.txt");
+                devcnt = 0;
+                TransNum = 0; WriteNum = 1;
+                buf[0] = 0x03;
+                // write into memory
+                cout << "start recording for 3 seconds" << endl;
+                ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
+                sleep(3);
+                cout << "stopping and processing" << endl;
+                buf[0] = 0x04;
+                ftStatus = FT_Write(ftHandle[devcnt], buf, WriteNum, &TransNum);
+                //sleep(3);
+                for (i=0;i<640;i++){
+                    //cout << "set transfer len to 128" << endl;
+                    TransNum = 0; WriteNum=1; 
+                    buf[0]=0x08; // transfer len set to be 128
+                    ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
+                    for (j=0;j<128;j++) bufc[j]=buf[j];
+                    //sleep(1);
 
-                        //cout << "USB FIFO data load command" << endl;
-                        buf[0]=0x05; // USB FIFO data load command
-                        ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
-                        for (j=0;j<128;j++) bufc[j]=buf[j];
-                        //sleep(1);
+                    //cout << "USB FIFO data load command" << endl;
+                    buf[0]=0x05; // USB FIFO data load command
+                    ftStatus = FT_Write(ftHandle[devcnt],buf,WriteNum,&TransNum);
+                    for (j=0;j<128;j++) bufc[j]=buf[j];
+                    //sleep(1);
 
-                        //cout << "Reading USB data" << endl;
-                        TransNum = 0; WriteNum=0; ReadNum=128; 
-                        ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);		   
-                        for (j=0;j<64;j++) {
-                            a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
-                            average += a[j+i*64];
-                            if (maximum < a[j+i*64]) {
-                                maximum = a[j+i*64];
-                            }
-                            if (minimum > a[j+i*64]) {
-                                minimum = a[j+i*64];
-                            }
-                            //cout << j + i * 64 << ": " << a[j+i*64] << endl;
-                            ofs << a[j+i*64] << endl;
+                    //cout << "Reading USB data" << endl;
+                    TransNum = 0; WriteNum=0; ReadNum=128; 
+                    ftStatus = FT_Read(ftHandle[devcnt],bufc,ReadNum,&TransNum);		   
+                    for (j=0;j<64;j++) {
+                        a[j+i*64]=bufc[2*j]+bufc[2*j+1]*256;
+                        average += a[j+i*64];
+                        if (maximum < a[j+i*64]) {
+                            maximum = a[j+i*64];
                         }
+                        if (minimum > a[j+i*64]) {
+                            minimum = a[j+i*64];
+                        }
+                        //cout << j + i * 64 << ": " << a[j+i*64] << endl;
+                        ofs << a[j+i*64] << endl;
                     }
-                    cout << "average: " << average / (j + i * 64 + 1) << endl;
-                    cout << "max: " << maximum << endl;
-                    cout << "min: " << minimum << endl;
-                    cout << "write finished" << endl;
-                    sleep(3);
-                    ofs.close();
                 }
+                cout << "average: " << average / (j + i * 64 + 1) << endl;
+                cout << "max: " << maximum << endl;
+                cout << "min: " << minimum << endl;
+                cout << "write finished" << endl;
+                ofs.close();
             }
 
             cout << "closing" << endl;
