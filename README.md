@@ -34,5 +34,5 @@ $ g++ libftd2xx.1.4.16.dylib recordLoadSound.cpp -o recordLoadSound
 To run:
 
 ```
-./test1
+./recordLoadSound
 ```
