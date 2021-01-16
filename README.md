@@ -26,9 +26,9 @@ sudo cp Desktop/D2XX/WinTypes.h /usr/local/include/WinTypes.h
 When compiling:
 
 ```
-$ gcc libftd2xx.1.4.16.dylib test1.cpp -o test1
+$ gcc libftd2xx.1.4.16.dylib recordLoadSound.cpp -o recordLoadSound
 or
-$ g++ libftd2xx.1.4.16.dylib test1.cpp -o test1
+$ g++ libftd2xx.1.4.16.dylib recordLoadSound.cpp -o recordLoadSound
 ```
 
 To run:
