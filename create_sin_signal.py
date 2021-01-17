@@ -15,12 +15,13 @@ DATE = os.environ.get("DATE")
 print(DATE)
 
 x = np.linspace(0, 10*np.pi, 40960)
-sin_signal = np.sin(2000*x)
+sin_signal = np.sin(1000*x) + np.random.rand(40960) * 0.8
 
 for i in range(36):
     fs = 20000
     angle = str(i * 10)
-    amplitude =  10 ** abs(i-18)
+    #amplitude =  1 + np.random.rand(1)[0]
+    amplitude = 2
     print("angle:", angle, "\t", "amplitude:", amplitude)
     data = amplitude * sin_signal
     lstrip = data.tolist()

@@ -19,6 +19,7 @@ def wav_read(angle):
     except:
         with open(f'rawdata-{DATE}/{angle}.txt') as f:
             l_strip = [int(s.strip()) for s in f.readlines()]
+    l_strip = l_strip[::3][:12900]
     return l_strip
 
 
@@ -30,16 +31,18 @@ if __name__ == "__main__":
     plt.close()
     """
     print(DATE)
-    fs = 20000
     angle = input('Enter angle: ')
     lstrip = wav_read(angle)
+    fs = len(lstrip) // 2.5
+    print(fs)
     Pxx, freqs, bins, im = plt.specgram(lstrip, Fs=fs, cmap = 'jet', mode='magnitude')
     print(Pxx.shape)
     #print(Pxx)
     print("freqs", freqs.shape)
     print(freqs)
+    #print(freqs)
     print("bins", bins.shape)
-    print(bins)
+    #print(bins)
 
     print(Pxx.sum(axis=1).shape)
     print(Pxx.sum(axis=0).shape)

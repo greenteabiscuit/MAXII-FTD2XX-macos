@@ -16,6 +16,7 @@ print(DATE)
 def wav_read(angle):
     try:
         with open(f'rawdata-{DATE}/soundrecord.txt') as f:
+            print("soundrecord")
             l_strip = [int(s.strip()) for s in f.readlines()]
     except:
         with open(f'rawdata-{DATE}/{angle}.txt') as f:
@@ -24,6 +25,7 @@ def wav_read(angle):
 
 
 if __name__ == "__main__":
+    print(DATE)
     angle = input('Enter angle: ')
     lstrip= wav_read(angle)
     """
