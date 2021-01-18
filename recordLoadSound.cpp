@@ -78,7 +78,7 @@ int main(){
             if (ftStatus==FT_OK) {
                 cout << "print initialization successful" << endl;
                 cout << "opening soudrecord" << endl;
-                ofstream ofs("rawdata-0116/soundrecord.txt");
+                ofstream ofs("rawdata-0118/soundrecord.txt");
                 devcnt = 0;
                 TransNum = 0; WriteNum = 1;
                 buf[0] = 0x03;
