@@ -21,7 +21,7 @@ def wav_read(angle):
     except:
         with open(f'rawdata-{DATE}/{angle}.txt') as f:
             l_strip = [int(s.strip()) for s in f.readlines()]
-    return l_strip
+    return l_strip[:30000]
 
 
 if __name__ == "__main__":
@@ -39,8 +39,8 @@ if __name__ == "__main__":
     y = lstrip
     plt.plot(x, y)
     plt.ylim(0, 900)
-    plt.xlabel("time [s]")
-    plt.ylabel("frequency [Hz]")
+    plt.xlabel("time [ms]")
+    plt.ylabel("Amplitude")
     plt.title(f"Waveform From FPGA ({angle} Degrees)")
     plt.show()
     plt.close()
