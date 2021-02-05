@@ -14,7 +14,9 @@ load_dotenv(dotenv_path)
 DATE = os.environ.get("DATE")
 print(DATE)
 
-z_raw = pd.concat([pd.read_csv(f"stftdata-{DATE}/{str(i*10)}.csv")["0"] for i in range(36)], axis=1).T.values
+#z_raw = pd.concat([pd.read_csv(f"stftdata-{DATE}/{str(i*10)}.csv")["0"] for i in range(36)], axis=1).T.values
+#z_raw = pd.concat([pd.read_csv(f"stftdata/stftdata-{DATE}-fs-12900-div-2.5/{str(i*10)}.csv")["0"] for i in range(36)], axis=1).T.values
+z_raw = pd.concat([pd.read_csv(f"stftdata/stftdata-1215-fs-12900-div-2.5/{str(i*10)}.csv")["0"][:50] for i in range(36)], axis=1).T.values
 print("z_raw:")
 # print(z_raw)
 print(type(z_raw))
@@ -57,7 +59,8 @@ ax = plt.subplot(111, projection="polar")
 plt.pcolormesh(th, np.log10(r), z, cmap = 'jet')
 ax.plot(a, np.log10(r), ls='none', color = 'k')
 
-ax.set_yticklabels(["", "10Hz", "", "100Hz", "", "1000Hz", "", "10000Hz"])
+#ax.set_yticklabels(["", "10Hz", "", "100Hz", "", "1000Hz", "", "10000Hz"])
+ax.set_yticklabels(["", "", "10Hz", "", "", "100Hz", "", ""])
 ax.set_rlabel_position(45)
 
 plt.title("Power Distribution With Frequency In Radial Direction (Using STFT)")
